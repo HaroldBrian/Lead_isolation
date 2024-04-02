@@ -3,52 +3,52 @@
 
 	// Global variables
 	var userAgent = navigator.userAgent.toLowerCase(),
-			initialDate = new Date(),
+		initialDate = new Date(),
 
-			$document = $(document),
-			$window = $(window),
-			$html = $("html"),
-			$body = $("body"),
+		$document = $(document),
+		$window = $(window),
+		$html = $("html"),
+		$body = $("body"),
 
-			isDesktop = $html.hasClass("desktop"),
-			isIE = userAgent.indexOf("msie") !== -1 ? parseInt(userAgent.split("msie")[1], 10) : userAgent.indexOf("trident") !== -1 ? 11 : userAgent.indexOf("edge") !== -1 ? 12 : false,
-			isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-			windowReady = false,
-			isNoviBuilder = false,
-			pageTransitionAnimationDuration = 500,
-			loaderTimeoutId,
-			plugins = {
-				bootstrapTooltip: $("[data-toggle='tooltip']"),
-				bootstrapModalDialog: $('.modal'),
-				bootstrapTabs: $(".tabs-custom"),
-				rdNavbar: $(".rd-navbar"),
-				maps: $(".google-map-container"),
-				rdMailForm: $(".rd-mailform"),
-				rdInputLabel: $(".form-label"),
-				regula: $("[data-constraints]"),
-				wow: $(".wow"),
-				owl: $(".owl-carousel"),
-				swiper: $(".swiper-slider"),
+		isDesktop = $html.hasClass("desktop"),
+		isIE = userAgent.indexOf("msie") !== -1 ? parseInt(userAgent.split("msie")[1], 10) : userAgent.indexOf("trident") !== -1 ? 11 : userAgent.indexOf("edge") !== -1 ? 12 : false,
+		isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+		windowReady = false,
+		isNoviBuilder = false,
+		pageTransitionAnimationDuration = 500,
+		loaderTimeoutId,
+		plugins = {
+			bootstrapTooltip: $("[data-toggle='tooltip']"),
+			bootstrapModalDialog: $('.modal'),
+			bootstrapTabs: $(".tabs-custom"),
+			rdNavbar: $(".rd-navbar"),
+			maps: $(".google-map-container"),
+			rdMailForm: $(".rd-mailform"),
+			rdInputLabel: $(".form-label"),
+			regula: $("[data-constraints]"),
+			wow: $(".wow"),
+			owl: $(".owl-carousel"),
+			swiper: $(".swiper-slider"),
 
-				counter: $(".counter"),
-				preloader: $(".preloader"),
-				captcha: $('.recaptcha'),
-				lightGallery: $("[data-lightgallery='group']"),
-				lightGalleryItem: $("[data-lightgallery='item']"),
-				lightDynamicGalleryItem: $("[data-lightgallery='dynamic']"),
-				mailchimp: $('.mailchimp-mailform'),
-				campaignMonitor: $('.campaign-mailform'),
-				copyrightYear: $(".copyright-year"),
-				buttonWinona: $('.button-winona'),
-			};
+			counter: $(".counter"),
+			preloader: $(".preloader"),
+			captcha: $('.recaptcha'),
+			lightGallery: $("[data-lightgallery='group']"),
+			lightGalleryItem: $("[data-lightgallery='item']"),
+			lightDynamicGalleryItem: $("[data-lightgallery='dynamic']"),
+			mailchimp: $('.mailchimp-mailform'),
+			campaignMonitor: $('.campaign-mailform'),
+			copyrightYear: $(".copyright-year"),
+			buttonWinona: $('.button-winona'),
+		};
 
 	/**
 	 * @desc Check the element was been scrolled into the view
 	 * @param {object} elem - jQuery object
 	 * @return {boolean}
 	 */
-	function isScrolledIntoView ( elem ) {
-		if ( isNoviBuilder ) return true;
+	function isScrolledIntoView(elem) {
+		if (isNoviBuilder) return true;
 		return elem.offset().top + elem.outerHeight() >= $window.scrollTop() && elem.offset().top <= $window.scrollTop() + $window.height();
 	}
 
@@ -57,16 +57,16 @@
 	 * @param {object} element - jQuery object
 	 * @param {function} func - init function
 	 */
-	function lazyInit( element, func ) {
+	function lazyInit(element, func) {
 		var scrollHandler = function () {
-			if ( ( !element.hasClass( 'lazy-loaded' ) && ( isScrolledIntoView( element ) ) ) ) {
+			if ((!element.hasClass('lazy-loaded') && (isScrolledIntoView(element)))) {
 				func.call();
-				element.addClass( 'lazy-loaded' );
+				element.addClass('lazy-loaded');
 			}
 		};
 
 		scrollHandler();
-		$window.on( 'scroll', scrollHandler );
+		$window.on('scroll', scrollHandler);
 	}
 
 	// Initialize scripts that require a loaded page
@@ -80,8 +80,8 @@
 				classActive: 'animated',
 				conditions: function (event, link) {
 					return !/(\#|callto:|tel:|mailto:|:\/\/)/.test(link)
-							&& !event.currentTarget.hasAttribute('data-lightgallery')
-							&& event.currentTarget.getAttribute('href') !== 'javascript:void(0);';
+						&& !event.currentTarget.hasAttribute('data-lightgallery')
+						&& event.currentTarget.getAttribute('href') !== 'javascript:void(0);';
 				},
 				onTransitionStart: function (options) {
 					setTimeout(function () {
@@ -106,9 +106,9 @@
 		 */
 		function toggleSwiperInnerVideos(swiper) {
 			var prevSlide = $(swiper.slides[swiper.previousIndex]),
-					nextSlide = $(swiper.slides[swiper.activeIndex]),
-					videos,
-					videoItems = prevSlide.find("video");
+				nextSlide = $(swiper.slides[swiper.activeIndex]),
+				videos,
+				videoItems = prevSlide.find("video");
 
 			for (var i = 0; i < videoItems.length; i++) {
 				videoItems[i].pause();
@@ -126,27 +126,27 @@
 		 */
 		function toggleSwiperCaptionAnimation(swiper) {
 			var prevSlide = $(swiper.container).find("[data-caption-animate]"),
-					nextSlide = $(swiper.slides[swiper.activeIndex]).find("[data-caption-animate]"),
-					delay,
-					duration,
-					nextSlideItem,
-					prevSlideItem;
+				nextSlide = $(swiper.slides[swiper.activeIndex]).find("[data-caption-animate]"),
+				delay,
+				duration,
+				nextSlideItem,
+				prevSlideItem;
 
 			for (var i = 0; i < prevSlide.length; i++) {
 				prevSlideItem = $(prevSlide[i]);
 
 				prevSlideItem.removeClass("animated")
-				.removeClass(prevSlideItem.attr("data-caption-animate"))
-				.addClass("not-animated");
+					.removeClass(prevSlideItem.attr("data-caption-animate"))
+					.addClass("not-animated");
 			}
 
 
 			var tempFunction = function (nextSlideItem, duration) {
 				return function () {
 					nextSlideItem
-					.removeClass("not-animated")
-					.addClass(nextSlideItem.attr("data-caption-animate"))
-					.addClass("animated");
+						.removeClass("not-animated")
+						.addClass(nextSlideItem.attr("data-caption-animate"))
+						.addClass("animated");
 					if (duration) {
 						nextSlideItem.css('animation-duration', duration + 'ms');
 					}
@@ -176,8 +176,8 @@
 		 */
 		function initOwlCarousel(c) {
 			var aliaces = ["-", "-sm-", "-md-", "-lg-", "-xl-", "-xxl-"],
-					values = [0, 576, 768, 992, 1200, 1600],
-					responsive = {};
+				values = [0, 576, 768, 992, 1200, 1600],
+				responsive = {};
 
 			for (var j = 0; j < values.length; j++) {
 				responsive[values[j]] = {};
@@ -201,8 +201,8 @@
 			if (c.attr('data-dots-custom')) {
 				c.on("initialized.owl.carousel", function (event) {
 					var carousel = $(event.currentTarget),
-							customPag = $(carousel.attr("data-dots-custom")),
-							active = 0;
+						customPag = $(carousel.attr("data-dots-custom")),
+						active = 0;
 
 					if (carousel.attr('data-active')) {
 						active = parseInt(carousel.attr('data-active'), 10);
@@ -374,25 +374,25 @@
 
 			if (captchaToken.length === 0) {
 				captcha
-				.siblings('.form-validation')
-				.html('Please, prove that you are not robot.')
-				.addClass('active');
+					.siblings('.form-validation')
+					.html('Please, prove that you are not robot.')
+					.addClass('active');
 				captcha
-				.closest('.form-wrap')
-				.addClass('has-error');
+					.closest('.form-wrap')
+					.addClass('has-error');
 
 				captcha.on('propertychange', function () {
 					var $this = $(this),
-							captchaToken = $this.find('.g-recaptcha-response').val();
+						captchaToken = $this.find('.g-recaptcha-response').val();
 
 					if (captchaToken.length > 0) {
 						$this
-						.closest('.form-wrap')
-						.removeClass('has-error');
+							.closest('.form-wrap')
+							.removeClass('has-error');
 						$this
-						.siblings('.form-validation')
-						.removeClass('active')
-						.html('');
+							.siblings('.form-validation')
+							.removeClass('active')
+							.html('');
 						$this.off('propertychange');
 					}
 				});
@@ -411,15 +411,15 @@
 				var $capthcaItem = $(plugins.captcha[i]);
 
 				grecaptcha.render(
-						$capthcaItem.attr('id'),
-						{
-							sitekey: $capthcaItem.attr('data-sitekey'),
-							size: $capthcaItem.attr('data-size') ? $capthcaItem.attr('data-size') : 'normal',
-							theme: $capthcaItem.attr('data-theme') ? $capthcaItem.attr('data-theme') : 'light',
-							callback: function (e) {
-								$('.recaptcha').trigger('propertychange');
-							}
+					$capthcaItem.attr('id'),
+					{
+						sitekey: $capthcaItem.attr('data-sitekey'),
+						size: $capthcaItem.attr('data-size') ? $capthcaItem.attr('data-size') : 'normal',
+						theme: $capthcaItem.attr('data-theme') ? $capthcaItem.attr('data-theme') : 'light',
+						callback: function (e) {
+							$('.recaptcha').trigger('propertychange');
 						}
+					}
 				);
 				$capthcaItem.after("<span class='form-validation'></span>");
 			}
@@ -433,9 +433,9 @@
 			plugins.bootstrapTooltip.tooltip('dispose');
 
 			if (window.innerWidth < 576) {
-				plugins.bootstrapTooltip.tooltip({placement: 'bottom'});
+				plugins.bootstrapTooltip.tooltip({ placement: 'bottom' });
 			} else {
-				plugins.bootstrapTooltip.tooltip({placement: tooltipPlacement});
+				plugins.bootstrapTooltip.tooltip({ placement: tooltipPlacement });
 			}
 		}
 
@@ -513,7 +513,7 @@
 		function initWinonaButtons(buttons) {
 			for (var i = 0; i < buttons.length; i++) {
 				var $button = $(buttons[i]),
-						innerContent = $button.html();
+					innerContent = $button.html();
 
 				$button.html('');
 				$button.append('<div class="content-original">' + innerContent + '</div>');
@@ -529,18 +529,18 @@
 			try {
 				coordinates = JSON.parse(str);
 				callback(new google.maps.LatLng(
-						coordinates.lat,
-						coordinates.lng
+					coordinates.lat,
+					coordinates.lng
 				), marker, map)
 			} catch (e) {
-				map.geocoder.geocode({'address': str}, function (results, status) {
+				map.geocoder.geocode({ 'address': str }, function (results, status) {
 					if (status === google.maps.GeocoderStatus.OK) {
 						var latitude = results[0].geometry.location.lat();
 						var longitude = results[0].geometry.location.lng();
 
 						callback(new google.maps.LatLng(
-								parseFloat(latitude),
-								parseFloat(longitude)
+							parseFloat(latitude),
+							parseFloat(longitude)
 						), marker, map)
 					}
 				})
@@ -553,16 +553,16 @@
 		function initMaps() {
 			var key;
 
-			for ( var i = 0; i < plugins.maps.length; i++ ) {
-				if ( plugins.maps[i].hasAttribute( "data-key" ) ) {
-					key = plugins.maps[i].getAttribute( "data-key" );
+			for (var i = 0; i < plugins.maps.length; i++) {
+				if (plugins.maps[i].hasAttribute("data-key")) {
+					key = plugins.maps[i].getAttribute("data-key");
 					break;
 				}
 			}
 
-			$.getScript('//maps.google.com/maps/api/js?'+ ( key ? 'key='+ key + '&' : '' ) +'sensor=false&libraries=geometry,places&v=quarterly', function () {
+			$.getScript('//maps.google.com/maps/api/js?' + (key ? 'key=' + key + '&' : '') + 'sensor=false&libraries=geometry,places&v=quarterly', function () {
 				var head = document.getElementsByTagName('head')[0],
-						insertBefore = head.insertBefore;
+					insertBefore = head.insertBefore;
 
 				head.insertBefore = function (newElement, referenceElement) {
 					if (newElement.href && newElement.href.indexOf('//fonts.googleapis.com/css?family=Roboto') !== -1 || newElement.innerHTML.indexOf('gm-style') !== -1) {
@@ -581,7 +581,7 @@
 						zoom: zoom,
 						styles: styles,
 						scrollwheel: false,
-						center: {lat: 0, lng: 0}
+						center: { lat: 0, lng: 0 }
 					});
 
 					// Add map object to map node
@@ -598,11 +598,11 @@
 					// Add markers from google-map-markers array
 					var markerItems = plugins.maps[i].querySelectorAll(".google-map-markers li");
 
-					if (markerItems.length){
+					if (markerItems.length) {
 						var markers = [];
-						for (var j = 0; j < markerItems.length; j++){
+						for (var j = 0; j < markerItems.length; j++) {
 							var markerElement = markerItems[j];
-							getLatLngObject(markerElement.getAttribute("data-location"), markerElement, plugins.maps[i], function(location, markerElement, mapElement){
+							getLatLngObject(markerElement.getAttribute("data-location"), markerElement, plugins.maps[i], function (location, markerElement, mapElement) {
 								var icon = markerElement.getAttribute("data-icon") || mapElement.getAttribute("data-icon");
 								var activeIcon = markerElement.getAttribute("data-icon-active") || mapElement.getAttribute("data-icon-active");
 								var info = markerElement.getAttribute("data-description") || "";
@@ -614,15 +614,15 @@
 									position: location,
 									map: mapElement.map
 								}
-								if (icon){
+								if (icon) {
 									markerData.icon = icon;
 								}
 								var marker = new google.maps.Marker(markerData);
 								markerElement.gmarker = marker;
-								markers.push({markerElement: markerElement, infoWindow: infoWindow});
+								markers.push({ markerElement: markerElement, infoWindow: infoWindow });
 								marker.isActive = false;
 								// Handle infoWindow close click
-								google.maps.event.addListener(infoWindow,'closeclick',(function(markerElement, mapElement){
+								google.maps.event.addListener(infoWindow, 'closeclick', (function (markerElement, mapElement) {
 									var markerIcon = null;
 									markerElement.gmarker.isActive = false;
 									markerIcon = markerElement.getAttribute("data-icon") || mapElement.getAttribute("data-icon");
@@ -631,16 +631,16 @@
 
 
 								// Set marker active on Click and open infoWindow
-								google.maps.event.addListener(marker, 'click', (function(markerElement, mapElement) {
+								google.maps.event.addListener(marker, 'click', (function (markerElement, mapElement) {
 									if (markerElement.infoWindow.getContent().length === 0) return;
 									var gMarker, currentMarker = markerElement.gmarker, currentInfoWindow;
-									for (var k =0; k < markers.length; k++){
+									for (var k = 0; k < markers.length; k++) {
 										var markerIcon;
-										if (markers[k].markerElement === markerElement){
+										if (markers[k].markerElement === markerElement) {
 											currentInfoWindow = markers[k].infoWindow;
 										}
 										gMarker = markers[k].markerElement.gmarker;
-										if (gMarker.isActive && markers[k].markerElement !== markerElement){
+										if (gMarker.isActive && markers[k].markerElement !== markerElement) {
 											gMarker.isActive = false;
 											markerIcon = markers[k].markerElement.getAttribute("data-icon") || mapElement.getAttribute("data-icon")
 											gMarker.setIcon(markerIcon);
@@ -650,13 +650,13 @@
 
 									currentMarker.isActive = !currentMarker.isActive;
 									if (currentMarker.isActive) {
-										if (markerIcon = markerElement.getAttribute("data-icon-active") || mapElement.getAttribute("data-icon-active")){
+										if (markerIcon = markerElement.getAttribute("data-icon-active") || mapElement.getAttribute("data-icon-active")) {
 											currentMarker.setIcon(markerIcon);
 										}
 
 										currentInfoWindow.open(map, marker);
-									}else{
-										if (markerIcon = markerElement.getAttribute("data-icon") || mapElement.getAttribute("data-icon")){
+									} else {
+										if (markerIcon = markerElement.getAttribute("data-icon") || mapElement.getAttribute("data-icon")) {
 											currentMarker.setIcon(markerIcon);
 										}
 										currentInfoWindow.close();
@@ -705,8 +705,8 @@
 
 				modalItem.on('hidden.bs.modal', $.proxy(function () {
 					var activeModal = $(this),
-							rdVideoInside = activeModal.find('video'),
-							youTubeVideoInside = activeModal.find('iframe');
+						rdVideoInside = activeModal.find('video'),
+						youTubeVideoInside = activeModal.find('iframe');
 
 					if (rdVideoInside.length) {
 						rdVideoInside[0].pause();
@@ -716,8 +716,8 @@
 						var videoUrl = youTubeVideoInside.attr('src');
 
 						youTubeVideoInside
-						.attr('src', '')
-						.attr('src', videoUrl);
+							.attr('src', '')
+							.attr('src', videoUrl);
 					}
 				}, modalItem))
 			}
@@ -808,15 +808,15 @@
 			for (var i = 0; i < plugins.swiper.length; i++) {
 				var s = $(plugins.swiper[i]);
 				var pag = s.find(".swiper-pagination"),
-						next = s.find(".swiper-button-next"),
-						prev = s.find(".swiper-button-prev"),
-						bar = s.find(".swiper-scrollbar"),
-						swiperSlide = s.find(".swiper-slide"),
-						autoplay = false;
+					next = s.find(".swiper-button-next"),
+					prev = s.find(".swiper-button-prev"),
+					bar = s.find(".swiper-scrollbar"),
+					swiperSlide = s.find(".swiper-slide"),
+					autoplay = false;
 
 				for (var j = 0; j < swiperSlide.length; j++) {
 					var $this = $(swiperSlide[j]),
-							url;
+						url;
 
 					if (url = $this.attr("data-slide-bg")) {
 						$this.css({
@@ -827,12 +827,12 @@
 				}
 
 				swiperSlide.end()
-				.find("[data-caption-animate]")
-				.addClass("not-animated")
-				.end();
+					.find("[data-caption-animate]")
+					.addClass("not-animated")
+					.end();
 
 				s.swiper({
-					autoplay: !isNoviBuilder && $.isNumeric( s.attr('data-autoplay') ) ? s.attr('data-autoplay') : false,
+					autoplay: !isNoviBuilder && $.isNumeric(s.attr('data-autoplay')) ? s.attr('data-autoplay') : false,
 					direction: s.attr('data-direction') ? s.attr('data-direction') : "horizontal",
 					effect: s.attr('data-slide-effect') ? s.attr('data-slide-effect') : "slide",
 					speed: s.attr('data-slide-speed') ? s.attr('data-slide-speed') : 600,
@@ -895,7 +895,7 @@
 		if (plugins.mailchimp.length) {
 			for (i = 0; i < plugins.mailchimp.length; i++) {
 				var $mailchimpItem = $(plugins.mailchimp[i]),
-						$email = $mailchimpItem.find('input[type="email"]');
+					$email = $mailchimpItem.find('input[type="email"]');
 
 				// Required by MailChimp
 				$mailchimpItem.attr('novalidate', 'true');
@@ -907,9 +907,9 @@
 					var $this = this;
 
 					var data = {},
-							url = $this.attr('action').replace('/post?', '/post-json?').concat('&c=?'),
-							dataArray = $this.serializeArray(),
-							$output = $("#" + $this.attr("data-form-output"));
+						url = $this.attr('action').replace('/post?', '/post-json?').concat('&c=?'),
+						dataArray = $this.serializeArray(),
+						$output = $("#" + $this.attr("data-form-output"));
 
 					for (i = 0; i < dataArray.length; i++) {
 						data[dataArray[i].name] = dataArray[i].value;
@@ -988,10 +988,10 @@
 
 				$campaignItem.on('submit', $.proxy(function (e) {
 					var data = {},
-							url = this.attr('action'),
-							dataArray = this.serializeArray(),
-							$output = $("#" + plugins.campaignMonitor.attr("data-form-output")),
-							$this = $(this);
+						url = this.attr('action'),
+						dataArray = this.serializeArray(),
+						$output = $("#" + plugins.campaignMonitor.attr("data-form-output")),
+						$this = $(this);
 
 					for (i = 0; i < dataArray.length; i++) {
 						data[dataArray[i].name] = dataArray[i].value;
@@ -1040,19 +1040,19 @@
 		// RD Mailform
 		if (plugins.rdMailForm.length) {
 			var i, j, k,
-					msg = {
-						'MF000': 'Successfully sent!',
-						'MF001': 'Recipients are not set!',
-						'MF002': 'Form will not work locally!',
-						'MF003': 'Please, define email field in your form!',
-						'MF004': 'Please, define type of your form!',
-						'MF254': 'Something went wrong with PHPMailer!',
-						'MF255': 'Aw, snap! Something went wrong.'
-					};
+				msg = {
+					'MF000': 'Successfully sent!',
+					'MF001': 'Recipients are not set!',
+					'MF002': 'Form will not work locally!',
+					'MF003': 'Please, define email field in your form!',
+					'MF004': 'Please, define type of your form!',
+					'MF254': 'Something went wrong with PHPMailer!',
+					'MF255': 'Aw, snap! Something went wrong.'
+				};
 
 			for (i = 0; i < plugins.rdMailForm.length; i++) {
 				var $form = $(plugins.rdMailForm[i]),
-						formHasCaptcha = false;
+					formHasCaptcha = false;
 
 				$form.attr('novalidate', 'novalidate').ajaxForm({
 					data: {
@@ -1064,10 +1064,10 @@
 							return;
 
 						var form = $(plugins.rdMailForm[this.extraData.counter]),
-								inputs = form.find("[data-constraints]"),
-								output = $("#" + form.attr("data-form-output")),
-								captcha = form.find('.recaptcha'),
-								captchaFlag = true;
+							inputs = form.find("[data-constraints]"),
+							output = $("#" + form.attr("data-form-output")),
+							captcha = form.find('.recaptcha'),
+							captchaFlag = true;
 
 						output.removeClass("active error success");
 
@@ -1076,36 +1076,36 @@
 							// veify reCaptcha
 							if (captcha.length) {
 								var captchaToken = captcha.find('.g-recaptcha-response').val(),
-										captchaMsg = {
-											'CPT001': 'Please, setup you "site key" and "secret key" of reCaptcha',
-											'CPT002': 'Something wrong with google reCaptcha'
-										};
+									captchaMsg = {
+										'CPT001': 'Please, setup you "site key" and "secret key" of reCaptcha',
+										'CPT002': 'Something wrong with google reCaptcha'
+									};
 
 								formHasCaptcha = true;
 
 								$.ajax({
 									method: "POST",
 									url: "bat/reCaptcha.php",
-									data: {'g-recaptcha-response': captchaToken},
+									data: { 'g-recaptcha-response': captchaToken },
 									async: false
 								})
-								.done(function (responceCode) {
-									if (responceCode !== 'CPT000') {
-										if (output.hasClass("snackbars")) {
-											output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + captchaMsg[responceCode] + '</span></p>')
+									.done(function (responceCode) {
+										if (responceCode !== 'CPT000') {
+											if (output.hasClass("snackbars")) {
+												output.html('<p><span class="icon text-middle mdi mdi-check icon-xxs"></span><span>' + captchaMsg[responceCode] + '</span></p>')
 
-											setTimeout(function () {
-												output.removeClass("active");
-											}, 3500);
+												setTimeout(function () {
+													output.removeClass("active");
+												}, 3500);
 
-											captchaFlag = false;
-										} else {
-											output.html(captchaMsg[responceCode]);
+												captchaFlag = false;
+											} else {
+												output.html(captchaMsg[responceCode]);
+											}
+
+											output.addClass("active");
 										}
-
-										output.addClass("active");
-									}
-								});
+									});
 							}
 
 							if (!captchaFlag) {
@@ -1127,7 +1127,7 @@
 							return;
 
 						var output = $("#" + $(plugins.rdMailForm[this.extraData.counter]).attr("data-form-output")),
-								form = $(plugins.rdMailForm[this.extraData.counter]);
+							form = $(plugins.rdMailForm[this.extraData.counter]);
 
 						output.text(msg[result]);
 						form.removeClass('form-in-process');
@@ -1141,12 +1141,12 @@
 							return;
 
 						var form = $(plugins.rdMailForm[this.extraData.counter]),
-								output = $("#" + form.attr("data-form-output")),
-								select = form.find('select');
+							output = $("#" + form.attr("data-form-output")),
+							select = form.find('select');
 
 						form
-						.addClass('success')
-						.removeClass('form-in-process');
+							.addClass('success')
+							.removeClass('form-in-process');
 
 						if (formHasCaptcha) {
 							grecaptcha.reset();
@@ -1200,7 +1200,7 @@
 
 			for (var z = 0; z < plugins.lightGalleryItem.length; z++) {
 				if (!$(plugins.lightGalleryItem[z]).parents('.owl-carousel').length &&
-						!$(plugins.lightGalleryItem[z]).parents('.swiper-slider').length) {
+					!$(plugins.lightGalleryItem[z]).parents('.swiper-slider').length) {
 					notCarouselItems.push(plugins.lightGalleryItem[z]);
 				}
 			}
@@ -1236,7 +1236,7 @@
 								value = value.toFixed(options.decimals);
 								if (value > 10000) {
 									var newValue = "",
-											stringValue = value.toString();
+										stringValue = value.toString();
 
 									for (var k = stringValue.length; k >= 0; k -= 3) {
 										if (k <= 3) {
@@ -1256,7 +1256,7 @@
 						$this.addClass('animated');
 					}
 				}, $counterNotAnimated))
-				.trigger("scroll");
+					.trigger("scroll");
 			}
 		}
 
@@ -1266,8 +1266,8 @@
 		}
 
 		// Google maps
-		if( plugins.maps.length ) {
-			lazyInit( plugins.maps, initMaps );
+		if (plugins.maps.length) {
+			lazyInit(plugins.maps, initMaps);
 		}
 
 	});
