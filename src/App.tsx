@@ -2,6 +2,7 @@ import house from "./icons/house.svg"
 import building from './icons/building.svg'
 import { Quiz, StepsProps } from "./components/Quiz"
 import NewForm from "./pages/form"
+import bg from './assets/images/bg.jpg'
 export default function App() {
 
   const steps: StepsProps[] = [
@@ -340,7 +341,7 @@ export default function App() {
 
   return (
     <div className="antialiased bg-gray-50 dark:bg-gray-900 h-screen">
-      <div className="bg-gradient-to-r from-primary-50 to-primary-400 w-full h-full flex flex-col items-center justify-center">
+      <div className={`w-full h-full flex flex-col items-center justify-center`}>
 
         {/* <Quiz steps={steps} /> */}
         <NewForm />

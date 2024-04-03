@@ -420,7 +420,7 @@ const NewForm: React.FC = () => {
                         placeholder={step?.placeholder}
                         value={responses[step.question] || ''}
                         onChange={(e) => handleChange(step.question, e.target.value)}
-                        className="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+                        className="shadow-b-sm bg-inherit text-gray-900 text-sm border-b-2 border-primary-600  focus:ring-primary-500 focus:border-primary-500 w-full p-2.5"
                         required
                     />
                 ) : step.type === 'select' ? (
@@ -442,7 +442,7 @@ const NewForm: React.FC = () => {
 
                                     }}
                                     className="hidden peer" required />
-                                <label htmlFor={`question_${step.question}_${answer.title}`} className="inline-flex items-center justify-between w-full p-3 text-gray-500 bg-white border-2 border-orange-200 rounded-lg cursor-pointer dark:hover:text-orange-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-orange-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                <label htmlFor={`question_${step.question}_${answer.title}`} className="inline-flex items-center justify-between w-full p-3 text-gray-500 bg-white border-2 border-primary-50 rounded-lg cursor-pointer  peer-checked:border-primary-400 hover:text-gray-600 peer-checked:text-gray-600 hover:bg-orange-50">
                                     <div className="block">
                                         <div className="w-full text-lg font-semibold">{answer.title}</div>
                                         {/* <div className="w-full text-sm">A JavaScript library for building user interfaces.</div> */}
@@ -475,7 +475,7 @@ const NewForm: React.FC = () => {
                                             handleChange(step.question, newValue);
                                         }}
                                         className="hidden peer" required />
-                                    <label htmlFor={`question_${step.question}_${answer.title}`} className="inline-flex items-center justify-between w-full p-3 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                    <label htmlFor={`question_${step.question}_${answer.title}`} className="inline-flex items-center justify-between w-full p-3 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-orange-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                                         <div className="block">
                                             <div className="w-full text-lg font-semibold">{answer.title}</div>
                                             {/* <div className="w-full text-sm">A JavaScript library for building user interfaces.</div> */}
@@ -503,12 +503,12 @@ const NewForm: React.FC = () => {
                         </div>
                     ))
                 ) : null}
-                {errors[step.question] && <p className='text-lg text-red-500 font-bold mb-2'>{errors[step.question]}</p>}
+                {errors[step.question] && <p className='text-lg text-red-600 font-bold mb-2'>{errors[step.question]}</p>}
 
                 {currentStep !== steps.length - 1 &&
                     <div className='absolute bottom-[45%] md:left-[45%] left-[40%] text-center'>
                         <button
-                            className=" bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded-full"
+                            className=" bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded-full"
 
                             onClick={handleNextStep}>
                             <img src={arrow} alt="arrow" />
@@ -517,7 +517,7 @@ const NewForm: React.FC = () => {
                 }
                 {(currentStep === steps.length - 1 && !isSubmitting) &&
                     <button
-                        className="absolute bottom-8 md:left-[45%] left-[40%] bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded-full"
+                        className="absolute bottom-[50%] md:left-[45%] left-[40%] bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded-full"
 
                         onClick={handleSubmit}>Soumettre
                     </button>
@@ -525,7 +525,7 @@ const NewForm: React.FC = () => {
 
                 {isSubmitting &&
                     <button disabled type="button"
-                        className="absolute bottom-[50%] md:left-[45%] left-[40%] bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded-full"
+                        className="absolute bottom-[50%] md:left-[45%] left-[40%] bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded-full"
                     >
                         <svg aria-hidden="true" role="status" className="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />
@@ -541,6 +541,11 @@ const NewForm: React.FC = () => {
 
     return (
         <div className='w-full h-full md:p-40 p-10 md:px-40'>
+            {(currentStep > 0) &&
+                <label onClick={() => {
+                    setCurrentStep(curr => curr - 1)
+                }}
+                    className='absolute top-[15%] text-xl font-semibold cursor-pointer text-primary-600' htmlFor="">Retour</label>}
             <div className={`absolute top-0 left-0 w-${progress}% h-2 bg-red-500`}></div>
             {currentStep === -1 ? (
                 <div>
@@ -550,7 +555,7 @@ const NewForm: React.FC = () => {
                     </div>
                     {/* <p>Bienvenue ! Veuillez cliquer sur le bouton ci-dessous pour commencer le questionnaire :</p> */}
                     <button
-                        className="absolute bottom-[50%] md:left-[45%] left-[40%] bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded-full"
+                        className="absolute bottom-[50%] md:left-[45%] left-[40%] bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded-full"
 
                         onClick={handleStart}><img src={arrow} alt="arrow" /></button>
                 </div>
