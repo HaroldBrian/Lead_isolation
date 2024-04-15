@@ -32,11 +32,12 @@ const NewForm: React.FC = () => {
       ],
     },
     {
-      question: "Votre email",
+      question: "Quel est votre numéro de télephone ?",
+      description: "Pour nous aider à vous contacter pour l'offre",
       type: "input",
-      responseType: "email",
+      responseType: "tel",
       answers: [],
-      placeholder: "ex. votre@mail.com",
+      placeholder: "ex: +33 621 31 31 80",
     },
     {
       question:
@@ -77,7 +78,7 @@ const NewForm: React.FC = () => {
           icon: "",
         },
         {
-          title: "Isolation du sous-sol/garage",
+          title: "Isolation des combles",
           icon: "",
         },
         {
@@ -111,6 +112,7 @@ const NewForm: React.FC = () => {
     {
       question:
         "Quelle est l’énergie de chauffage actuelle de votre logement ?",
+      description: "Vous pouvez sélectionner plusieurs éléments",
       type: "multiselect",
       answers: [
         {
@@ -149,7 +151,7 @@ const NewForm: React.FC = () => {
       type: "input",
       responseType: "number",
       answers: [],
-      placeholder: "ex. 100",
+      placeholder: "ex: 100",
     },
 
     {
@@ -184,11 +186,11 @@ const NewForm: React.FC = () => {
       answers: [],
     },
     {
-      question: "Quel est votre numéro de télephone ?",
+      question: "Votre adresse mail",
       type: "input",
-      responseType: "tel",
+      responseType: "email",
       answers: [],
-      placeholder: "ex: +33 621 31 31 80",
+      placeholder: "ex. mail@domaine.com",
     },
   ];
 
@@ -245,7 +247,9 @@ const NewForm: React.FC = () => {
         },
         body: JSON.stringify({ fields: dataToSend }),
       });
-      alert("Formulaire soumis avec succès !");
+      alert(
+        "Formulaire soumis avec succès ! Nous vous contacterons très rapidement."
+      );
       setCurrentStep(-1);
       setResponses({});
       setIsSubmitting(false);
@@ -290,13 +294,13 @@ const NewForm: React.FC = () => {
     return (
       <div key={step.question} className="flex flex-col w-full">
         <label
-          className="text-2xl my-1 text-secondary font-bold"
+          className="text-xl md:text-2xl my-1 text-secondary font-bold "
           htmlFor={`question_${step.question}`}
         >
           {step.question}
         </label>
         <label
-          className="text-sm mb-3 text-gray-500"
+          className="text-xs md:text-sm mb-3 text-gray-500"
           htmlFor={`question_${step.description}`}
         >
           {step.description}
@@ -308,7 +312,7 @@ const NewForm: React.FC = () => {
             placeholder={step?.placeholder}
             value={responses[step.question] || ""}
             onChange={(e) => handleChange(step.question, e.target.value)}
-            className="shadow-b-sm bg-inherit text-gray-900 text-xl border-b-2 border-primary-600  focus:ring-primary-500 focus:border-primary-500 w-full py-2.5"
+            className="shadow-b-sm bg-inherit text-gray-900 text-md md:text-xl border-b-2 border-primary-600  focus:ring-primary-500 focus:border-primary-500 w-full py-2.5"
             required
           />
         ) : step.type === "select" ? (
@@ -409,13 +413,13 @@ const NewForm: React.FC = () => {
           ))
         ) : null}
         {errors[step.question] && (
-          <p className="text-lg text-red-600 font-bold mb-2">
+          <p className="text-xs md:text-sm text-red-500 font-semibold my-2">
             {errors[step.question]}
           </p>
         )}
 
         {currentStep !== steps.length - 1 && (
-          <div className="absolute bottom-[45%] md:left-[45%] left-[40%] text-center">
+          <div className="absolute bottom-[55%] md:bottom-[50%] lg:bottom-[45%] md:left-[45%] left-[40%] text-center">
             <button
               className=" bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded-full"
               onClick={handleNextStep}
@@ -426,7 +430,7 @@ const NewForm: React.FC = () => {
         )}
         {currentStep === steps.length - 1 && !isSubmitting && (
           <button
-            className="absolute bottom-[50%] md:left-[45%] left-[40%] bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded-full"
+            className="absolute bottom-[55%] md:bottom-[50%] lg:bottom-[45%] md:left-[45%] left-[40%] bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded-full"
             onClick={handleSubmit}
           >
             Soumettre
@@ -437,7 +441,7 @@ const NewForm: React.FC = () => {
           <button
             disabled
             type="button"
-            className="absolute bottom-[50%] md:left-[45%] left-[40%] bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded-full"
+            className="absolute bottom-[55%] md:bottom-[50%] lg:bottom-[45%] md:left-[40%] left-[35%] bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded-full"
           >
             <svg
               aria-hidden="true"
@@ -470,7 +474,7 @@ const NewForm: React.FC = () => {
           onClick={() => {
             setCurrentStep((curr) => curr - 1);
           }}
-          className="relative sm:top-[-15px] md:top-[-35px] lg:top-[-40px] border-[1px] border-white rounded-full px-2 py-1 text-md font-semibold cursor-pointer text-primary-600"
+          className="relative xs:top-[-20px] md:top-[-35px] lg:top-[-40px] border-[1px] border-white rounded-full px-2 py-1 text-sm md:text-md font-semibold cursor-pointer text-primary-600"
           htmlFor=""
         >
           Précedent
@@ -490,7 +494,7 @@ const NewForm: React.FC = () => {
             </h1>
           </div>
           <button
-            className="absolute bottom-[50%] md:left-[45%] left-[40%] bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded-full"
+            className="absolute bottom-[55%] md:bottom-[50%] lg:bottom-[45%] md:left-[45%] left-[40%] bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded-full"
             onClick={handleStart}
           >
             <img src={arrow} alt="arrow" />
